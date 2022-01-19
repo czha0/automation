@@ -7,6 +7,6 @@ Written in Python
 
 <p></p>
 
-**Excel Email Generator.xlam**
-Written in VBA
+**Excel Email Generator.txt**
+Written in VBA (.xlam)
 <p>Automatically generate seperate emails from master worksheet.</p>
