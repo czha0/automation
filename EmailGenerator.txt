@@ -1,0 +1,67 @@
+Sub Copy_Loop()
+
+'
+' Copy_Loop Macro
+'
+
+    'Load StrNum
+    StrNum = Sheets("EmailGen").Cells(18, 2) + 1
+    
+    'Turn off Screen Update
+    Application.ScreenUpdating = False
+    
+    
+    For CopyNum = 1 To StrNum
+    
+        'Define Open and Save File Names
+        RowNum = CopyNum
+        OpenFN = Sheets("EmailGen").Cells(13, 2)
+        SaveDir = Sheets("EmailGen").Cells(14, 2)
+        StrNum = Sheets("Info").Cells(RowNum, 1)
+        SavePW = Sheets("Info").Cells(RowNum, 2)
+        SaveTab = Sheets("Info").Cells(RowNum, 3)
+        SaveFN = SaveDir + StrNum + ".xlsx"
+        MsgAlert = "Str " + StrNum + " generated successfully."
+    
+        
+        'Open BL File
+        Workbooks.Open Filename:=OpenFN, _
+        Password:="robert"
+        Application.WindowState = xlMaximized
+        'Select and Copy File
+        Sheets(SaveTab).Select
+        Sheets(SaveTab).Copy
+        Cells.Select
+        Selection.Copy
+        Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+            :=False, Transpose:=False
+        'Clear Comments for Change Months
+        Range("B36").Select
+        Selection.ClearComments
+        ActiveWindow.SmallScroll Down:=24
+        'Clear Notes for Unhide Rows
+        Range("K:K").Select
+        Selection.Delete
+        'Delete Working Papers
+        Rows("70:200").Select
+        Selection.Delete
+        'Select Cell A1
+        ActiveWindow.ScrollRow = 1
+        Range("A1").Select
+        'Save Worksheet
+        ActiveWorkbook.SaveAs Filename:=SaveFN, FileFormat:= _
+            xlOpenXMLWorkbook, CreateBackup:=False, Password:=SavePW
+        'Save file and suppress the save as warning message
+        Application.DisplayAlerts = False
+        'Close Saved Worksheet
+        ActiveWindow.Close
+        'Close BL Worksheet
+        ActiveWindow.Close
+    
+    MsgBox (MsgAlert)
+    
+    Next CopyNum
+    
+    MsgBox ("All emails have been generated.")
+    
+End Sub
