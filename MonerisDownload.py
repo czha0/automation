@@ -2,8 +2,8 @@ from selenium import webdriver;
 from selenium.webdriver.support.ui import Select;
 import time;
 
-# version: beta 0.9
-# Last Update: Dec 23, 2021
+# version: beta 0.9.1
+# Last Update: Feb 23, 2022
 # note: testing software, download Moneris Daily Transcation csv, no GUI
 
 # change your Moneris Credential and Chain number here
